@@ -21,6 +21,8 @@ public:
 	void print_reverse() const;
 	void print();
 	void print_no_comma();
+	friend std::vector<int> GetNumber(const LongDouble& number);
+	friend int GetDigitsAfterComma(const LongDouble& number);
 	friend int GetRealLength(const LongDouble& number);
 private:
 	std::vector <int> number;

@@ -65,6 +65,16 @@ void LongDouble::print_no_comma()
 	std::cout << '\n';
 }
 
+std::vector<int> GetNumber(const LongDouble& number)
+{
+	return number.number;
+}
+
+int GetDigitsAfterComma(const LongDouble& number)
+{
+	return number.digits_after_comma;
+}
+
 int GetRealLength(const LongDouble& number)
 {
 	int temp = 0;
