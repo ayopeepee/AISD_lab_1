@@ -1,21 +1,28 @@
 ﻿#include "LongDouble.h"
 #include <chrono>
 #include <iostream>
+#include <fstream>
 
 
 int main(void) {
-	LongDouble num1("123.32132");
-	LongDouble num2("1000");
-	auto slow_pow_start = std::chrono::steady_clock::now();
-	LongDouble num3 = slow_pow(num1, num2);
-	auto slow_pow_end = std::chrono::steady_clock::now();
-	auto fast_pow_start = std::chrono::steady_clock::now();
-	LongDouble num4 = pow(num1, num2);
-	auto fast_pow_end = std::chrono::steady_clock::now();
-	num3.print();
-	std::cout << "slow_pow_time: " << std::chrono::duration_cast<std::chrono::milliseconds>(slow_pow_end - slow_pow_start).count() << '\n';
-	num4.print();
-	std::cout << "fast_pow_time: " << std::chrono::duration_cast<std::chrono::milliseconds>(fast_pow_end - fast_pow_start).count() << '\n';
+	std::string string_number;
+	std::string string_power;
+	std::ifstream read_from("input.txt", std::ios::in);
+	if (read_from) {
+		while (!read_from.eof()) {
+			read_from >> string_number;
+			read_from >> string_power;
+			LongDouble number(string_number);
+			LongDouble power(string_power);
+			auto time_start = std::chrono::steady_clock::now();
+			LongDouble result = pow(number, power);
+			auto time_end = std::chrono::steady_clock::now();
+			auto total_time = std::chrono::duration_cast<std::chrono::milliseconds>(time_end - time_start).count();
+			result.print();
+			std::cout << "time (ms): " << total_time << '\n';
+		}
+	}
+	read_from.close();
 
 	return 0;
 }
